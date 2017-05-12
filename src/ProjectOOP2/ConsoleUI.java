@@ -15,9 +15,9 @@ public class ConsoleUI {
 	public void run() {
 		while( controlOrder ) {
 			Scanner input = new Scanner( System.in );
-			System.out.print( "What menu do you want to eat? [Ex: 1 , 3][Confrim : confirm][Exit : quit] : " );
+			System.out.print( "What menu do you want to eat? [Ex: 1,3,5][(C)onfirm / (Q)uit] : " );
 			String ans = input.nextLine();
-			if( ans.equalsIgnoreCase("confirm") ) {
+			if( ans.equalsIgnoreCase("c") || ans.equalsIgnoreCase("q") ) {
 				analyzeConfirm( orderList );
 			}
 			else {
@@ -29,7 +29,6 @@ public class ConsoleUI {
 	public void analyzeOrder(String ans) {
 		String[] ansSplit = ans.split(",");
 		for(int i=0;i<ansSplit.length;i++) {
-			//			ansSplit[i] = ansSplit[i].trim();
 			try {
 				int num = Integer.parseInt( ansSplit[i].trim() );
 				if( num > menuManager.getCapacity() ) {
@@ -50,7 +49,6 @@ public class ConsoleUI {
 				}
 			} catch( Exception ex ) {
 				System.out.println( "!!! Input --> "+ansSplit[i]+" --> Invalid input , please try again." );
-				//				System.out.println( ex.getMessage() );
 			}
 		}
 		System.out.println( "Your orders are : " );
@@ -107,7 +105,7 @@ public class ConsoleUI {
 						System.out.println( orderList.get(i).toString() );
 					}
 					int totalCost = findTotalCost( orderList );
-					System.out.println( "Total cost = "+totalCost+" Baht." );
+					System.out.printf( "%43s    --> %3d Baht.\n" , "Total cost" , totalCost );
 					System.out.println( "We will cooked for you now..." );
 					controlConfirmOrder = false;
 					controlOrder = false;
