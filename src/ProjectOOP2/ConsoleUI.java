@@ -37,8 +37,8 @@ public class ConsoleUI {
 				}
 				else {
 					Menu order = menuManager.getAllMenuList().get(num-1);
-					System.out.print( "Input --> "+num );
-					System.out.println( " --> You ordered ... "+"ID: "+order.getMenuID()+", Name: "+order.getMenuName()+" --> "+order.getMenuCost()+" Baht." );
+					System.out.printf( "Input --> %-3d" , num );
+					System.out.printf( " --> You ordered ... "+"ID: %-3d, Name: %-23s --> %5d Baht.\n" ,order.getMenuID(),order.getMenuName(),order.getMenuCost());
 					if( containMenu( order ) ) {
 						int indexOfOrder = orderList.indexOf( order );
 						orderList.get( indexOfOrder ).addAmountByOne();
@@ -97,7 +97,7 @@ public class ConsoleUI {
 			boolean controlConfirmOrder = true;
 			while( controlConfirmOrder ) {
 				Scanner input = new Scanner( System.in );
-				System.out.print( "(C)onfirm order , (E)dit : " );
+				System.out.print( "(C)onfirm order , (E)dit , (Q)uit : " );
 				String ans = input.nextLine().trim();
 				if( ans.equalsIgnoreCase("c") ) {
 					System.out.println( "You have confirm ordered : " );
@@ -112,6 +112,11 @@ public class ConsoleUI {
 				}
 				else if( ans.equalsIgnoreCase("e") ) {
 					editMenu();
+				}
+				else if( ans.equalsIgnoreCase("q") ) {
+					System.out.println( "Bye Bye ~" );
+					controlConfirmOrder = false;
+					controlOrder = false;
 				}
 				else {
 					System.out.println( " Invalid input , please try again." );
