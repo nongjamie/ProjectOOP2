@@ -4,11 +4,11 @@ public class Menu {
 
 	private String menuName;
 	private int menuCost;
-	private int menuNum;
+	private int menuId;
 	private int amount;
 	
 	public Menu( int inputMenuNum , String inputName , int inputPrice ) {
-		menuNum = inputMenuNum;
+		menuId = inputMenuNum;
 		menuName = inputName;
 		menuCost = inputPrice;
 		amount = 1;
@@ -22,8 +22,8 @@ public class Menu {
 		return menuCost;
 	}
 	
-	public int getMenuNum() {
-		return menuNum;
+	public int getMenuID() {
+		return menuId;
 	}
 	
 	public int getAmount() {
@@ -34,8 +34,12 @@ public class Menu {
 		amount = n;
 	}
 	
+	public void addAmountByOne() {
+		amount = amount + 1;
+	}
+	
 	public String toString() {
-		return ( menuNum+". "+menuName+", Amount: "+amount+" -> "+amount*menuCost+" Baht." );
+		return ( "ID: "+menuId+", "+menuName+", Amount: "+amount+", --> "+amount*menuCost+" Baht." );
 	}
 	
 }
