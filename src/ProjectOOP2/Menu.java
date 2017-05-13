@@ -40,7 +40,10 @@ public class Menu {
 	
 	public String toString() {
 		return String.format( "ID: %-3d , %-20s , Amount: %-5d --> %d Baht." , menuId , menuName , getAmount() , getAmount()*menuCost );
-//		return ( "ID: "+menuId+", "+menuName+", Amount: "+amount+", --> "+amount*menuCost+" Baht." );
+	}
+	
+	public String toShowFirstTime() {
+		return String.format( "ID: %-3d , %-20s , %d Baht." , menuId , menuName , menuCost );
 	}
 	
 }

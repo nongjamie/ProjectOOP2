@@ -43,6 +43,7 @@ public class MenuManager {
 			readPrice.add( price );
 			readLine = buffReader.readLine();
 		}
+		
 		for( int i=0 ; i<readID.size() ; i++ ) {
 			list.add( new Menu( readID.get(i) , readMenu.get(i) , readPrice.get(i) ) );
 			capacity++;
@@ -53,6 +54,30 @@ public class MenuManager {
 		return list;
 	}
 
+	public int[] getIDArray() {
+		int[] box = new int[ readID.size() ];
+		for(int i=0;i<box.length;i++) {
+			box[i] = readID.get(i);
+		}
+		return box;
+	}
+	
+	public String[] getMenuArray() {
+		String[] box = new String[ readMenu.size() ];
+		for(int i=0;i<box.length;i++) {
+			box[i] = readMenu.get(i);
+		}
+		return box;
+	}
+	
+	public int[] getPriceArray() {
+		int[] box = new int[ readPrice.size() ];
+		for(int i=0;i<box.length;i++) {
+			box[i] = readPrice.get(i);
+		}
+		return box;
+	}
+	
 	public void printAllMenu() {
 		for( Menu eachMenu : list ) {
 			System.out.printf( "ID: %-3d , %-20s   %d Baht.\n" , eachMenu.getMenuID() , eachMenu.getMenuName() , eachMenu.getMenuCost() );

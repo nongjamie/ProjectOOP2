@@ -90,10 +90,7 @@ public class ConsoleUI {
 			}
 		}
 		else {
-			System.out.println( "You have ordered : " );
-			for(int i=0; i<orderList.size() ;i++) {
-				System.out.println( orderList.get(i).toString() );
-			}
+			printAllOrder();
 			boolean controlConfirmOrder = true;
 			while( controlConfirmOrder ) {
 				Scanner input = new Scanner( System.in );
@@ -101,9 +98,7 @@ public class ConsoleUI {
 				String ans = input.nextLine().trim();
 				if( ans.equalsIgnoreCase("c") ) {
 					System.out.println( "You have confirm ordered : " );
-					for(int i=0; i<orderList.size() ;i++) {
-						System.out.println( orderList.get(i).toString() );
-					}
+					printAllOrder();
 					int totalCost = findTotalCost( orderList );
 					System.out.printf( "%43s    --> %3d Baht.\n" , "Total cost" , totalCost );
 					System.out.println( "We will cooked for you now..." );
@@ -148,28 +143,19 @@ public class ConsoleUI {
 						Menu x = menuManager.getAllMenuList().get(num-1);
 						int index = orderList.indexOf( x );	
 						orderList.remove( index );
-						System.out.println( "You have ordered : " );
-						for(int i=0; i<orderList.size() ;i++) {
-							System.out.println( orderList.get(i).toString() );
-						}
+						printAllOrder();
 					}
 					else {
 						Menu x = menuManager.getAllMenuList().get(num-1);
 						int index = orderList.indexOf( x );	
 						orderList.get(index).setAmount(n);
-						System.out.println( "You have ordered : " );
-						for(int i=0; i<orderList.size() ;i++) {
-							System.out.println( orderList.get(i).toString() );
-						}
+						printAllOrder();
 					}
 				}
 				else if( choice.equalsIgnoreCase("D") ) {
 					Menu x = menuManager.getAllMenuList().get(num-1);
 					orderList.remove( x );
-					System.out.println( "You have ordered : " );
-					for(int i=0; i<orderList.size() ;i++) {
-						System.out.println( orderList.get(i).toString() );
-					}
+					printAllOrder();
 				}
 				else {
 					System.out.println( "Invalid input , please try again." );
@@ -187,6 +173,13 @@ public class ConsoleUI {
 			}
 		}
 		return false;
+	}
+	
+	public void printAllOrder() {
+		System.out.println( "You have ordered : " );
+		for(int i=0; i<orderList.size() ;i++) {
+			System.out.println( orderList.get(i).toString() );
+		}
 	}
 	
 	public int findTotalCost( List<Menu> list ) {
