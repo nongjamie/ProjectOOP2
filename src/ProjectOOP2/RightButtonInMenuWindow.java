@@ -46,7 +46,6 @@ public class RightButtonInMenuWindow extends JButton {
 			case 2:
 				break;
 			case 3:
-				UI.setNewOrderList();
 				System.exit( 0 );
 				break;
 			}

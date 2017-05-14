@@ -35,20 +35,23 @@ public class JamieGUI extends Observable implements Observer {
 	private JPanel buttomPanel;
 	private JLabel textLabel;
 	
+	/**
+	 * The Construtor
+	 * @param UI
+	 */
 	public JamieGUI( ConsoleUI UI) {
 		this.UI = UI;
 		frame = new JFrame("SKE14 Restaurant");
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		initComponent();
 		addAllComponent();
-		run();
-	}
-	
-	public void run() {
 		frame.setVisible( true );
 		frame.pack();
 	}
 	
+	/**
+	 * Initial of every components.
+	 */
 	public void initComponent() {
 		
 		// Top section
@@ -59,6 +62,8 @@ public class JamieGUI extends Observable implements Observer {
 		ConfirmWindow confirmWindow = new ConfirmWindow( UI );
 		StatusWindow statusWindow = new StatusWindow( UI );
 		this.addObserver( menuWindow );
+		this.addObserver( confirmWindow );
+		this.addObserver( statusWindow );
 		mainTab.add( "Menu" , menuWindow.getPanel() );
 		mainTab.add( "Confirm" , confirmWindow.getPanel() );
 		mainTab.add( "Status" , statusWindow.getPanel() );
@@ -70,6 +75,9 @@ public class JamieGUI extends Observable implements Observer {
 		
 	}
 	
+	/**
+	 * Add all components into the frame.
+	 */
 	public void addAllComponent() {
 		
 		// Top section
@@ -83,6 +91,9 @@ public class JamieGUI extends Observable implements Observer {
 		frame.add( buttomPanel , BorderLayout.SOUTH );
 	}
 
+	/**
+	 * Use Observer pattern.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		this.setChanged();

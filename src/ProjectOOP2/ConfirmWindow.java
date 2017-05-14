@@ -1,11 +1,13 @@
 package ProjectOOP2;
 
 import java.awt.Dimension;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class ConfirmWindow {
+public class ConfirmWindow implements Observer {
 	
 	private JPanel myPanel;
 	private JTextArea textArea;
@@ -15,20 +17,20 @@ public class ConfirmWindow {
 	public ConfirmWindow( ConsoleUI UI ) {
 		this.UI = UI;
 		myPanel = new JPanel();
-		textArea = new JTextArea();
-		textArea2 = new JTextArea();
 		manageComponent();
 	}
 	
 	public void manageComponent() {
-		textArea.setPreferredSize( new Dimension( 580 , 500 ) );
-		textArea2.setText( "$$$ SKE14 Restaurant $$$" );
-		myPanel.add( textArea );
-		myPanel.add( textArea2 );
+		
 	}
 	
 	public JPanel getPanel() {
 		return myPanel;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
 	}
 	
 }

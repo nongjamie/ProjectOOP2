@@ -33,12 +33,11 @@ public class MenuWindow implements Observer {
 	private JButton amountShow;
 	private JButton totalShow;
 	private JPanel buttonPanel;
-	private JButton confirmButton;
-	private JButton clearButton;
-	private JButton reportButton;
-	private JButton quitButton;
 	
-	
+	/**
+	 * This is the constuctor.
+	 * @param UI
+	 */
 	public MenuWindow( ConsoleUI UI ) {
 		this.UI = UI;
 		
@@ -49,36 +48,36 @@ public class MenuWindow implements Observer {
 		// Middle
 		myPanelMiddle = new JPanel( );
 		myPanelMiddle.setLayout( new BoxLayout( myPanelMiddle , BoxLayout.Y_AXIS ) );
-		for( int a = 0 ; a < UI.getCapacityOfMenu() ; a++ ) {
-			myPanelMiddle.add( new MiddleButtonInMenuWindow( UI , UI.getMenuBook() ,  a ) );
-		}
 		
 		// Right side
 		myPanelRight = new JPanel();
 		myPanelRight.setLayout( new BoxLayout( myPanelRight , BoxLayout.Y_AXIS) );
+		
 		textLabelRight = new JLabel( "Ordered List" );
+		
 		textAreaRight = new JTextArea();
 		paneRight = new JScrollPane( textAreaRight );
 		paneRight.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
+		
 		statusPanel = new JPanel();
 		statusPanel.setLayout( new BoxLayout( statusPanel , BoxLayout.X_AXIS ) );
 		amountShow = new JButton( "Amount = 0.");
 		totalShow = new JButton( "Total 0 Baht." );
 		amountShow.setEnabled( false );
 		totalShow.setEnabled( false );
+		
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout( new BoxLayout( buttonPanel , BoxLayout.X_AXIS) );
-		confirmButton = new JButton( "Confirm" );
-		clearButton = new JButton( "Clear" );
-		reportButton = new JButton( "Report" );
-		quitButton = new JButton( "Quit" );
 		
 		manageComponent();
 	}
 	
+	/**
+	 * Manage components and take them into panel.
+	 */
 	public void manageComponent() {
 		
-		// Left side
+		// Left
 		myPanelLeft.setPreferredSize( new Dimension( 220 , 400 ) );
 		JLabel menuLabel = new JLabel("Menu");
 		menuLabel.setFont( new Font("TimesRoman", Font.BOLD, 40) );
@@ -92,9 +91,13 @@ public class MenuWindow implements Observer {
 		
 		// Middle
 		myPanelMiddle.setPreferredSize( new Dimension( 130 , 400 ) );
+		for( int a = 0 ; a < UI.getCapacityOfMenu() ; a++ ) {
+			myPanelMiddle.add( new MiddleButtonInMenuWindow( UI , UI.getMenuBook() ,  a ) );
+		}
 		
-		// Right side
+		// Right
 		paneRight.setPreferredSize( new Dimension( 400 , 350 ) );
+		textAreaRight.setEnabled( false );
 		myPanelRight.add( textLabelRight );
 		myPanelRight.add( paneRight );
 		statusPanel.add( amountShow );
@@ -103,14 +106,14 @@ public class MenuWindow implements Observer {
 		for( int i = 0 ; i < 4 ; i++) {
 			buttonPanel.add( new RightButtonInMenuWindow( UI , i ) );
 		}
-//		buttonPanel.add( confirmButton );
-//		buttonPanel.add( clearButton );
-//		buttonPanel.add( reportButton );
-//		buttonPanel.add( quitButton );
 		myPanelRight.add( buttonPanel );
 		
 	}
 	
+	/**
+	 * Send Menu content.
+	 * @return totalPanel , all panel of this part.
+	 */
 	public JPanel getPanel() {
 		totalPanel = new JPanel();
 		totalPanel.add( myPanelLeft );
@@ -119,6 +122,9 @@ public class MenuWindow implements Observer {
 		return totalPanel;
 	}
 
+	/**
+	 * Use Observer pattern.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		textAreaRight.setText( UI.toStringFromOrderList() );
