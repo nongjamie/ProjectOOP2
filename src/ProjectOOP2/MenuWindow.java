@@ -11,7 +11,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class MenuWindow implements Observer {
+public class MenuWindow extends Observable implements Observer {
 	
 	// General
 	private ConsoleUI UI;
@@ -20,10 +20,8 @@ public class MenuWindow implements Observer {
 	// Left side
 	private JPanel myPanelLeft;
 	private JTextPane textAreaLeft;
+	private SpinnerInMenuWindow spinner ;
 
-	// Middle
-	private JPanel myPanelMiddle;
-	
 	// Right side
 	private JPanel myPanelRight;
 	private JLabel textLabelRight;
@@ -36,7 +34,7 @@ public class MenuWindow implements Observer {
 	
 	/**
 	 * This is the constuctor.
-	 * @param UI
+	 * @param UI , ConsoleUI
 	 */
 	public MenuWindow( ConsoleUI UI ) {
 		this.UI = UI;
@@ -45,10 +43,6 @@ public class MenuWindow implements Observer {
 		myPanelLeft = new JPanel();
 		myPanelLeft.setLayout( new BoxLayout( myPanelLeft , BoxLayout.Y_AXIS ) );
 
-		// Middle
-		myPanelMiddle = new JPanel( );
-		myPanelMiddle.setLayout( new BoxLayout( myPanelMiddle , BoxLayout.Y_AXIS ) );
-		
 		// Right side
 		myPanelRight = new JPanel();
 		myPanelRight.setLayout( new BoxLayout( myPanelRight , BoxLayout.Y_AXIS) );
@@ -78,27 +72,35 @@ public class MenuWindow implements Observer {
 	public void manageComponent() {
 		
 		// Left
-		myPanelLeft.setPreferredSize( new Dimension( 220 , 400 ) );
+		myPanelLeft.setPreferredSize( new Dimension( 380 , 400 ) );
 		JLabel menuLabel = new JLabel("Menu");
 		menuLabel.setFont( new Font("TimesRoman", Font.BOLD, 40) );
-		myPanelLeft.add( menuLabel  );
+		JPanel tempPanelLeft = new JPanel();
+		tempPanelLeft.add( menuLabel , BorderLayout.CENTER );
+		myPanelLeft.add( tempPanelLeft);
 		for( int i = 0 ; i < UI.getCapacityOfMenu() ; i++ ) {
+			JPanel miniPanel = new JPanel();
+			miniPanel.setLayout( new BorderLayout() );
 			Menu x = UI.getMenuBook().getAllMenuList().get(i);
 			JLabel y = new JLabel( String.format( "ID: %-5d %s" , x.getMenuID() , x.getMenuName() ) );
 			y.setFont( new Font("TimesRoman", Font.PLAIN, 15) );
-			myPanelLeft.add( y );
-		}
-		
-		// Middle
-		myPanelMiddle.setPreferredSize( new Dimension( 130 , 400 ) );
-		for( int a = 0 ; a < UI.getCapacityOfMenu() ; a++ ) {
-			myPanelMiddle.add( new MiddleButtonInMenuWindow( UI , UI.getMenuBook() ,  a ) );
+			miniPanel.add( y , BorderLayout.WEST);
+			JPanel miniPanel2 = new JPanel();
+			miniPanel2.add( new MiddleButtonInMenuWindow( UI , UI.getMenuBook() ,  i ) , BorderLayout.WEST);
+			spinner = new SpinnerInMenuWindow( UI  , i);
+			this.addObserver( spinner );
+			miniPanel2.add( spinner , BorderLayout.EAST);
+			miniPanel.add( miniPanel2 , BorderLayout.EAST );
+			myPanelLeft.add( miniPanel );
 		}
 		
 		// Right
-		paneRight.setPreferredSize( new Dimension( 400 , 350 ) );
+		paneRight.setPreferredSize( new Dimension( 420 , 270 ) );
 		textAreaRight.setEnabled( false );
-		myPanelRight.add( textLabelRight );
+		JPanel tempPanelRight = new JPanel();
+		textLabelRight.setFont( new Font("TimesRoman", Font.BOLD, 35 ) );
+		tempPanelRight.add( textLabelRight , BorderLayout.CENTER );
+		myPanelRight.add( tempPanelRight );
 		myPanelRight.add( paneRight );
 		statusPanel.add( amountShow );
 		statusPanel.add( totalShow );
@@ -117,7 +119,6 @@ public class MenuWindow implements Observer {
 	public JPanel getPanel() {
 		totalPanel = new JPanel();
 		totalPanel.add( myPanelLeft );
-		totalPanel.add( myPanelMiddle );
 		totalPanel.add( myPanelRight );
 		return totalPanel;
 	}
@@ -130,6 +131,8 @@ public class MenuWindow implements Observer {
 		textAreaRight.setText( UI.toStringFromOrderList() );
 		totalShow.setText( "Total "+UI.getTotalCost()+" Baht." );
 		amountShow.setText( "Amount = "+UI.getTotalAmount()+"." );
+		setChanged();
+		notifyObservers();
 	}
 	
 }

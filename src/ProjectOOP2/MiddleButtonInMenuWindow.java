@@ -17,7 +17,7 @@ public class MiddleButtonInMenuWindow extends JButton {
 		this.UI = UI;
 		this.menuBook = menuBook;
 		this.buttonID = buttonID;
-		this.setText( buttonID+1+" -> "+menuBook.getAllMenuList().get( buttonID ).getMenuCost()+" Baht."  );
+		this.setText( menuBook.getAllMenuList().get( buttonID ).getMenuCost()+" Baht."  );
 		ButtonListener action = new ButtonListener();
 		this.addActionListener( action );
 	}

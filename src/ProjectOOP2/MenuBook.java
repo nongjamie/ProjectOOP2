@@ -87,4 +87,10 @@ public class MenuBook {
 	public int getCapacity() {
 		return capacity;
 	}
+	
+	public void resetMenu() {
+		for( int i=0 ; i<list.size() ; i++ ) {
+			list.get(i).setAmount(0);
+		}
+	}
 }

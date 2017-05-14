@@ -11,7 +11,7 @@ public class Menu {
 		menuId = inputMenuNum;
 		menuName = inputName;
 		menuCost = inputPrice;
-		amount = 1;
+		amount = 0;
 	}
 	
 	public String getMenuName() {
@@ -39,7 +39,6 @@ public class Menu {
 	}
 	
 	public String toString() {
-//		return String.format( "ID: %-3d , %-20s , Amount: %-5d --> %d Baht." , menuId , menuName , getAmount() , getAmount()*menuCost );
 		return String.format( "ID: %-3d ,  %s Amount: %-5d --> %d Baht." , menuId , menuName , getAmount() , getAmount()*menuCost );
 	}
 	

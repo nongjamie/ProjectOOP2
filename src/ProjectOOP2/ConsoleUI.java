@@ -1,4 +1,5 @@
 package ProjectOOP2;
+import java.io.IOException;
 import java.util.*;
 public class ConsoleUI extends Observable {
 
@@ -13,15 +14,15 @@ public class ConsoleUI extends Observable {
 	public int getCapacityOfMenu() {
 		return menuBook.getCapacity();
 	}
-	
+
 	public MenuBook getMenuBook() {
 		return menuBook;
 	}
-	
+
 	public List<Menu> getOrderList() {
 		return orderList;
 	}
-	
+
 	public void AddToOrderList( Menu menu ) {
 		if( orderList.contains( menu ) ) {
 			orderList.remove( menu );
@@ -45,17 +46,17 @@ public class ConsoleUI extends Observable {
 				}
 			}
 
-			
+
 		} );
 		setChanged();
 		notifyObservers();
 		System.out.println( toStringFromOrderList() );
 	}
-	
+
 	public String toStringFromOrderList() {
 		String s = "";
 		for( Menu x : orderList ) {
-			s = s.concat( x.toString()+"\n" );
+			s = s.concat( " "+x.toString()+"\n" );
 		}
 		return s;
 	}
@@ -67,7 +68,7 @@ public class ConsoleUI extends Observable {
 		}
 		return x;
 	}
-	
+
 	public int getTotalAmount() {
 		int x = 0;
 		for( Menu y : orderList ) {
@@ -75,13 +76,33 @@ public class ConsoleUI extends Observable {
 		}
 		return x;
 	}
-	
+
 	public void setNewOrderList() {
 		orderList.clear();
+		menuBook.resetMenu();
+		setChanged();
+		notifyObservers();
+	}
+
+	public void setAmountMenuInOrderList( int ID , int amount ) {
+		if( orderList.contains( menuBook.getAllMenuList().get( ID ) ) ) {
+			int indexInOrderList = orderList.indexOf( menuBook.getAllMenuList().get( ID ) );
+			orderList.get( indexInOrderList ).setAmount( amount );
+		}
+		else {
+				orderList.add( menuBook.getAllMenuList().get( ID ) );				
+		}
 		setChanged();
 		notifyObservers();
 	}
 	
+	public void deleteMenuInOrderList( int ID ) {
+		int indexDelete = orderList.indexOf( menuBook.getAllMenuList().get(ID) );
+		orderList.remove( indexDelete );
+		setChanged();
+		notifyObservers();
+	}
+
 }
 
 
