@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 public class StatusWindow {
 	
 	private JPanel myPanel;
-	private MenuManager menuManager;
+	private ConsoleUI UI;
 	
-	public StatusWindow( MenuManager menuManager ) {
-		this.menuManager = menuManager;
+	public StatusWindow( ConsoleUI UI ) {
+		this.UI = UI;
 		myPanel = new JPanel();
 	}
 	

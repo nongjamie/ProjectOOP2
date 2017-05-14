@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.TextArea;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,11 +21,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
 
-public class JamieGUI {
+public class JamieGUI extends Observable implements Observer {
 	
 	// General
 	private JFrame frame;
-	private MenuManager menuManager;
+	private ConsoleUI UI;
 	
 	// Top section
 	private JTabbedPane mainTab;
@@ -33,8 +35,8 @@ public class JamieGUI {
 	private JPanel buttomPanel;
 	private JLabel textLabel;
 	
-	public JamieGUI( MenuManager menuManager ) {
-		this.menuManager = menuManager;
+	public JamieGUI( ConsoleUI UI) {
+		this.UI = UI;
 		frame = new JFrame("SKE14 Restaurant");
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		initComponent();
@@ -44,7 +46,6 @@ public class JamieGUI {
 	
 	public void run() {
 		frame.setVisible( true );
-//		frame.setSize( 900 , 610 );
 		frame.pack();
 	}
 	
@@ -54,9 +55,10 @@ public class JamieGUI {
 		topPanel = new JPanel();
 		mainTab = new JTabbedPane();
 		mainTab.setTabLayoutPolicy( JTabbedPane.SCROLL_TAB_LAYOUT );
-		MenuWindow menuWindow = new MenuWindow( menuManager );
-		ConfirmWindow confirmWindow = new ConfirmWindow( menuManager );
-		StatusWindow statusWindow = new StatusWindow( menuManager );
+		MenuWindow menuWindow = new MenuWindow( UI );
+		ConfirmWindow confirmWindow = new ConfirmWindow( UI );
+		StatusWindow statusWindow = new StatusWindow( UI );
+		this.addObserver( menuWindow );
 		mainTab.add( "Menu" , menuWindow.getPanel() );
 		mainTab.add( "Confirm" , confirmWindow.getPanel() );
 		mainTab.add( "Status" , statusWindow.getPanel() );
@@ -79,6 +81,12 @@ public class JamieGUI {
 		// Add into the frame
 		frame.add( topPanel , BorderLayout.NORTH);
 		frame.add( buttomPanel , BorderLayout.SOUTH );
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }

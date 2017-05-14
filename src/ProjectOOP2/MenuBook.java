@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MenuManager {
+public class MenuBook {
 
 	private InputStream inputStream;
 	private BufferedReader buffReader;
@@ -21,7 +21,7 @@ public class MenuManager {
 	private List<Integer> readPrice;
 	private int capacity = 0;
 
-	public MenuManager( String name ) throws IOException {
+	public MenuBook( String name ) throws IOException {
 		list = new ArrayList<Menu>();
 		readID = new ArrayList<Integer>();
 		readMenu = new ArrayList<String>();

@@ -10,10 +10,10 @@ public class ConfirmWindow {
 	private JPanel myPanel;
 	private JTextArea textArea;
 	private JTextArea textArea2;
-	private MenuManager menuManager;
+	private ConsoleUI UI;
 	
-	public ConfirmWindow( MenuManager menuManager ) {
-		this.menuManager = menuManager;
+	public ConfirmWindow( ConsoleUI UI ) {
+		this.UI = UI;
 		myPanel = new JPanel();
 		textArea = new JTextArea();
 		textArea2 = new JTextArea();
